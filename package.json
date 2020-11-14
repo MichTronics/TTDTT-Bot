@@ -1,0 +1,24 @@
+{
+  "name": "ttdtt-bot",
+  "version": "0.0.1",
+  "description": "Twitch, Teamspeak, Telegram, Twitch, Discord - Bot. ",
+  "scripts": {
+    "client": "nodemon TTDTT-Bot-Client/ttdtt-bot-client.js",
+    "server": "nodemon TTDTT-Bot-Server/ttdtt-bot-server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MichTronics/TTDTT-Bot.git"
+  },
+  "author": "Michel van Veen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MichTronics/TTDTT-Bot/issues"
+  },
+  "homepage": "https://github.com/MichTronics/TTDTT-Bot#readme",
+  "dependencies": {
+    "socket.io": "^3.0.1",
+    "socket.io-client": "^3.0.1",
+    "terminal-kit": "^1.44.0"
+  }
+}

@@ -4,3 +4,4 @@ server_secrets.js
 .idea
 node_modules
 .vscode
+package-lock.json
