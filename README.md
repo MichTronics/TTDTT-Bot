@@ -10,6 +10,8 @@ ClientSide: Control commands that get info from client to send to the server lik
 
 TODO
 ----
-- [x] Finish my changes
-- [ ] Push my commits to GitHub
-- [ ] Open a pull request
+- [ ] Add config files.
+- [ ] Add Client files.
+- [ ] Add Server files.
+- [ ] Add socket.i.o to client and server.
+- [ ] Add Discord,
