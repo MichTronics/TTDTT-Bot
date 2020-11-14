@@ -2,7 +2,7 @@
 
 Twitch, Teamspeak, Telegram, Twitch, Discord - Bot. 
 
-This bot is for logging and controlling Rasberry's, Servers, Clients. Can als be use for Ham Radio repeater monitoring that is the use where i gonna make it for.
+Updat READThis bot is for logging and controlling Rasberry's, Servers, Clients. Can als be used for Ham Radio repeater monitoring that is the use where i gonna make it for.
 
 ServerSide: Control Twitch, Teamspeak, Telegram, Twitch, Discord, Socket.io request and response.
 
