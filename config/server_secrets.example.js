@@ -1,6 +1,6 @@
 module.exports = {
     // Discord bot token 
-    discord_bot: "<toke>",
+    discord_bot: "<token>",
 
     // Telegram bot token
     telegram_bot: "<token>",
