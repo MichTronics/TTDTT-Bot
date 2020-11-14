@@ -1,6 +1,6 @@
 # TTDTT-Bot
 
-Twitch Teamspeak, Telegram, Twitch, Discord - Bot. 
+Twitch, Teamspeak, Telegram, Twitch, Discord - Bot. 
 
 This bot is for logging and controlling Rasberry's, Servers, Clients.
 
