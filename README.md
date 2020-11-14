@@ -8,3 +8,8 @@ ServerSide: Control Twitch, Teamspeak, Telegram, Twitch, Discord request and res
 
 ClientSide: Control commands that get info from client to send to the server like logfiles, uptime, connection info, SVXLink repeater info.
 
+TODO
+----
+- [x] Finish my changes
+- [ ] Push my commits to GitHub
+- [ ] Open a pull request
