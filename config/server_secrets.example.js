@@ -6,10 +6,10 @@ module.exports = {
     telegram_bot: "<token>",
 
     // Twitch bot login
-    twi_username: "<login name>",
-    twi_password: "<password>",
+    twi_username: "<username>",
+    twi_password: "oauth:<password>",
 
     // Teamspeak query login
-    ts3_username: "<login name query login>",
+    ts3_username: "<username>",
     ts3_password: "<password>",
 };

@@ -17,8 +17,8 @@ TODO:
 - [ ] Add term-kit to server and client.
 - [ ] Keep track of de connection socket id.
 
-Also on the TODO: for later:
-
+Features also on the TODO: for later:
+----
 - [ ] Add Discord.
 - [ ] Add Teamspeak.
 - [ ] Add Telegram.

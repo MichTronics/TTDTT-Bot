@@ -7,19 +7,43 @@ module.exports = {
     
     // Message Prefix !status
     prefix: "!",
-
-    // Discord Administrator ID
-    discord_admin_id: "381779653922258956",
     
-    // Discord Bot Channel ID
-    dc_bot_chanId: "775340713898016778",
+    // SOCKET.IO
+
+    // Server ip address 0.0.0.0 for all interfaces
+    server_ip: "0.0.0.0",
 
     // Server port
     port: 6001,
 
+    // DISCORD
+
+    // Discord Administrator ID
+    discord_admin_id: "<id>",
+
+    // Discord Bot Channel ID
+    dc_bot_chanId: "<id>",
+
+    // TELEGRAM
+
     // Telegram 1 Channel ID
-    tg_1_chanId: "-1001192931456",
+    tg_1_chanId: "<id>",
 
     // Telegram 2 Channel ID
-    tg_2__chanId: "-1001463903302",
+    tg_2__chanId: "<id>",
+
+    // TEAMSPEAK
+
+    // Teamspeak host ip-address
+    ts_host: "<ip>",
+
+    // Teamspeak host port
+    ts_port: 9021,
+
+    // Teamspeak query port
+    ts_query_port: 10011,
+
+    // Teamspeak bot nickname
+    ts_bot_nickname: "<nickname>",
+
 };

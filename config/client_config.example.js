@@ -3,14 +3,14 @@ module.exports = {
     client_id: 1,
 
     // Client type could be SERVER/CLIENT or RASPBERRY
-    client_type: "SERVER",
+    client_type: "<SERVER/CLIENT/RASPBERRY>",
 
-    // Client name could be SVXLink repeater name or Hostname
-    client_name: "CB-SVXLINK01-CORE",
+    // Client name could be SVXLink repeater name or Hostname or any name you want.
+    client_name: "<name>",
     
-    // Server connect address
-    server_url: "http://localhost",
+    // Host connect address
+    host_url: "http://localhost",
 
-    // Server connect port
-    port: 6001,
+    // Host connect port
+    host_port: 6001,
 };
