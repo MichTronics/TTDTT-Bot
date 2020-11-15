@@ -1,16 +1,27 @@
 const io = require("socket.io-client");
-const term = require("terminal-kit").terminal;
+const log = require("../global/log/log")
 
 const config = require("./config/client_config");
 
+// Starting Client
+console.log("\033[2J");
+log.logGreen(config.client_name, 'Starting....');
+
+// Connect to the server
 socket = io.connect(`${config.host_url}:${config.host_port}`);
 
-console.log("\033[2J")
-
+// Socket event connect
 socket.on('connect', () => {
-    term.green.bold('TTDTT-Bot-Client Connected....\n');
+    log.logGreen(config.client_name, 'Connected to server....');
 })
 
+socket.on("connect_error", err => {
+    log.logRed(config.client_name, `Connect error: ${err instanceof Error}`); // true
+    log.logRed(config.client_name, `Connect error: ${err.message}`); // not authorized
+    log.logRed(config.client_name, `Connect error: ${err.data.content}`); // { content: "Please retry later" }
+});
+
+// Socket event getClientInfo
 socket.on('getClientInfo', () => {
     socket.emit('clientInfo', {
         clientId: config.client_id,

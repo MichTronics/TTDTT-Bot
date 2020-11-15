@@ -16,6 +16,8 @@ TODO:
 - [x] Add socket.io to server and client.
 - [x] Add term-kit to server and client.
 - [x] Keep track of de connection socket id.
+- [x] Get Time.
+- [x] Custom terminal log.
 
 Features also on the TODO: for later:
 ----
