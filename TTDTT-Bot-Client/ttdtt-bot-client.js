@@ -11,10 +11,16 @@ log.logGreen(config.client_name, 'Starting....');
 socket = io.connect(`${config.host_url}:${config.host_port}`);
 
 // Socket event connect
-socket.on('connect', () => {
-    log.logGreen(config.client_name, 'Connected to server....');
-})
+//socket.on('connect', () => {
+//    log.logGreen(config.client_name, 'Connected to server....');
+//})
 
+socket.on('socketClientID', function (socketClientID) {
+    log.logGreen(config.client_name, 'Connection to server established. SocketID is ' + socketClientID);
+    //console.log('Connection to server established. SocketID is' + socketClientID);
+});
+
+// Socket error message when server is in maintenance
 socket.on("connect_error", err => {
     log.logRed(config.client_name, `Connect error: ${err instanceof Error}`); // true
     log.logRed(config.client_name, `Connect error: ${err.message}`); // not authorized
