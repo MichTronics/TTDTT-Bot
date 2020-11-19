@@ -81,7 +81,7 @@ io.on('connection', (socket) => {
     setInterval(function() {
         startTime = Date.now();
         socket.emit('ping');
-    }, 1000);
+    }, 10000);
     
     socket.on('pong', (data) => {
         latency = Date.now() - startTime;
@@ -97,7 +97,6 @@ io.on('connection', (socket) => {
                 '## PING ## Latency is: ^w' + latency + 
                 '^g ms to: ^w' + data.clientName
             );
-            //console.log(`** PING ** Latency is: ${latency}ms to: ${data.client_name} `);
         }
     });
 })

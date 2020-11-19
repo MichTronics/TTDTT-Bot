@@ -18,10 +18,11 @@ TODO:
 - [x] Keep track of de connection socket id.
 - [x] Get Time.
 - [x] Custom terminal log.
+- [x] Add ping function.
+- [x] Add Discord.
 
 Features also on the TODO: for later:
 ----
-- [ ] Add Discord.
 - [ ] Add Teamspeak.
 - [ ] Add Telegram.
 - [ ] Add Twitch.

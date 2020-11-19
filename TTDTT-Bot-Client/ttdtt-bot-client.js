@@ -15,6 +15,7 @@ socket = io.connect(`${config.hostUrl}:${config.hostPort}`);
 //    log.logGreen(config.client_name, 'Connected to server....');
 //})
 
+// Socket event send ping
 socket.on('ping', function() {
     socket.emit('pong', {
         clientName: config.clientName
