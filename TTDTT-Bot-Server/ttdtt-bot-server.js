@@ -12,10 +12,9 @@ let usersSocketId = [];
 let clientsId = [];
 let clientsName= [];
 let clientsType = [];
+let clientsIp = [];
 
 const discord = new Discord.Client();
-
-
 
 // Starting Server
 console.log("\033[2J");
@@ -42,14 +41,15 @@ io.on('connection', (socket) => {
             clientsId.push(data.clientId);
             clientsName.push(data.clientName);
             clientsType.push(data.clientType);
+            clientsIp.push(socket.request.connection.remoteAddress);
             if(config.debug === true) {
                 console.log(usersSocketId);
                 console.log(clientsId);
                 console.log(clientsType);
                 console.log(clientsName);
+                console.log(clientsIp);
             }
         }
-        
     });
 
     socket.on('disconnect', function () {
@@ -66,16 +66,20 @@ io.on('connection', (socket) => {
             console.log(clientsId);
             console.log(clientsType);
             console.log(clientsName);
+            console.log(clientsIp);
         }
+
         log.logGreen(config.serverName,
             '^rClient ^w' + clientsName[socket_pos] + 
             ' ^ris disconnected with socketId:^w ' + socket.client.id +
             ' ^g\n'
         );
+
         usersSocketId.splice(socket_pos, 1);
         clientsId.splice(socket_pos, 1);
         clientsType.splice(socket_pos, 1);
         clientsName.splice(socket_pos, 1);
+        clientsIp.splice(socket_pos, 1);
     });
 
     // Ping every 10 sec
@@ -119,29 +123,59 @@ discord.on('ready', (socket) => {
         ' is connected to Discord.'
     );
 
-    let bot_channel = discord.channels.cache.get(config.dc_bot_chanId);
+    let botChannel = discord.channels.cache.get(config.dc_bot_chanId);
     const embed = new MessageEmbed()
         .setTitle("Connect Info")
         .setColor(0x00ff00)
         .setDescription(`${config.serverName} is connected to Discord.`);
-        bot_channel.send(embed);
+        botChannel.send(embed);
         // if(config.discord_output === true) {
         //     tb.telegram.sendMessage(config.tg_cbjunkiesNs_chanId, 'CBJunkies-Bot is geconnect met Discord en Telegram.');
         // }
+});
 
+discord.on('message', (msg) => {
+    if(!msg.content.startsWith(config.prefix) || msg.author.bot) return;
+    const args = msg.content.slice(config.prefix.length).trim().split(" ");
+    const cmds = args.shift().toLowerCase();
+    let botChannel = discord.channels.cache.get(config.dc_bot_chanId);
+    if (config.debug === true) {
+        console.log(msg);
+    }
+    if (cmds === "help") {
+        const embed = new MessageEmbed()
+            .setColor('#0099ff')
+            .setTitle('Help command')
+            .setDescription('Help asked')
+            .addFields(
+                // { name: '\u200B', value: '\u200B' },
+                { name: `${config.prefix}help`, value: 'Show this help', inline: true },
+                { name: `${config.prefix}client <command>`, value: `list: List all clients`, inline: true },
+            )
+            .setTimestamp()
+            botChannel.send(embed);   
+    } else if (cmds === "client" && args.length <= 0) {
+        const embed = new MessageEmbed()
+            .setTitle(`Gebruik command ${config.prefix}${cmds}`)
+            .setColor(0xff0000)
+            .setDescription(`
+                ${config.prefix}${cmds} list : List all connected clients.
+            `);
+            botChannel.send(embed);
+    } else if (cmds === "client" && args[0] === "list") {
+        for ( let x = 0; x < clientsName.length; x++) {
+            botChannel.send('ID: ' + clientsId[x] + '  NAAM: ' + clientsName[x] + '  IP: ' + clientsIp[x]);
+        }
+    }
 })
-
-
 
 //
 // Telegram
 //
 
-
 //
 // TeamSpeak Query
 //
-
 
 // Bot start socket.io, Discord
 http.listen(config.port, `${config.server_ip}`, () => {

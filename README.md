@@ -20,10 +20,13 @@ TODO:
 - [x] Custom terminal log.
 - [x] Added ping function.
 - [x] Added Discord.
-- [x] Added Discord Bot welcome message. 
+- [x] Added Discord Bot Welcome message. 
+- [x] Added Discord Bot Command messages.
 - [ ] Discord bot command debug on/off.
 - [ ] Discord bot command get the real hostnames from clients.
-- [ ] Discord bot command list al connected clients.
+- [x] Discord bot command list al connected clients.
+- [ ] Discord bot command in maintenance mode.
+- [ ] Discord bot command reboot client.
 
 Features also on the TODO: for later:
 ----
