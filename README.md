@@ -22,8 +22,8 @@ TODO:
 - [x] Added Discord.
 - [x] Added Discord Bot welcome message. 
 - [ ] Discord bot command debug on/off.
-- [ ] Discord bot command get hostnames from clients.
-- [ ] Discord bot command list al connected clinets.
+- [ ] Discord bot command get the real hostnames from clients.
+- [ ] Discord bot command list al connected clients.
 
 Features also on the TODO: for later:
 ----
