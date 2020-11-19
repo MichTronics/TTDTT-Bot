@@ -78,6 +78,7 @@ io.on('connection', (socket) => {
         clientsName.splice(socket_pos, 1);
     });
 
+    // Ping every 10 sec
     setInterval(function() {
         startTime = Date.now();
         socket.emit('ping');
@@ -117,6 +118,17 @@ discord.on('ready', (socket) => {
         '^g' + config.serverName + 
         ' is connected to Discord.'
     );
+
+    let bot_channel = discord.channels.cache.get(config.dc_bot_chanId);
+    const embed = new MessageEmbed()
+        .setTitle("Connect Info")
+        .setColor(0x00ff00)
+        .setDescription(`${config.serverName} is connected to Discord.`);
+        bot_channel.send(embed);
+        // if(config.discord_output === true) {
+        //     tb.telegram.sendMessage(config.tg_cbjunkiesNs_chanId, 'CBJunkies-Bot is geconnect met Discord en Telegram.');
+        // }
+
 })
 
 

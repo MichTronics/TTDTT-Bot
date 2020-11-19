@@ -10,16 +10,20 @@ ClientSide: Control commands that get info from client to send to the server lik
 
 TODO:
 ----
-- [x] Add config files.
-- [x] Add Client files.
-- [x] Add Server files.
-- [x] Add socket.io to server and client.
-- [x] Add term-kit to server and client.
+- [x] Added config files.
+- [x] Added Client files.
+- [x] Added Server files.
+- [x] Added socket.io to server and client.
+- [x] Added term-kit to server and client.
 - [x] Keep track of de connection socket id.
 - [x] Get Time.
 - [x] Custom terminal log.
-- [x] Add ping function.
-- [x] Add Discord.
+- [x] Added ping function.
+- [x] Added Discord.
+- [x] Added Discord Bot welcome message. 
+- [ ] Discord bot command debug on/off.
+- [ ] Discord bot command get hostnames from clients.
+- [ ] Discord bot command list al connected clinets.
 
 Features also on the TODO: for later:
 ----
