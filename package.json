@@ -17,8 +17,10 @@
   },
   "homepage": "https://github.com/MichTronics/TTDTT-Bot#readme",
   "dependencies": {
+    "discord.js": "^12.4.1",
     "socket.io": "^3.0.1",
     "socket.io-client": "^3.0.1",
+    "telegraf": "^3.38.0",
     "terminal-kit": "^1.44.0"
   }
 }
