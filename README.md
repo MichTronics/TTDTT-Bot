@@ -22,7 +22,7 @@ TODO:
 - [x] Added Discord.
 - [x] Added Discord Bot Welcome message. 
 - [x] Added Discord Bot Command messages.
-- [ ] Discord bot command debug on/off.
+- [x] Discord bot command debug on/off.
 - [x] Discord bot command get the real hostnames from clients.
 - [x] Discord bot command list al connected clients.
 - [ ] Discord bot command in maintenance mode.
