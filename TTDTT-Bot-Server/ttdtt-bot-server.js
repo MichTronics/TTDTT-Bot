@@ -4,6 +4,7 @@ const log = require("../global/log/log");
 const { Telegraf } = require("telegraf");
 const Discord = require("discord.js");
 const { MessageEmbed } = require("discord.js");
+const EventEmitter = require("events");
 
 const config = require("./config/server_config");
 const token = require("./config/server_secrets");
@@ -14,7 +15,10 @@ let clientsName= [];
 let clientsType = [];
 let clientsIp = [];
 
+class MyEmitter extends EventEmitter {};
+
 const discord = new Discord.Client();
+const myEmitter = new MyEmitter;
 
 // Starting Server
 console.log("\033[2J");
@@ -98,11 +102,15 @@ io.on('connection', (socket) => {
                     '^r ms to: ^w' + data.clientName
                 );
             }
-            log.logGreen(config.serverName,
-                '## PING ## Latency is: ^w' + latency + 
-                '^g ms to: ^w' + data.clientName
-            );
+            // log.logGreen(config.serverName,
+            //     '## PING ## Latency is: ^w' + latency + 
+            //     '^g ms to: ^w' + data.clientName
+            // );
         }
+    });
+
+    socket.on("discordCmdHostname", (data) => {
+        myEmitter.emit("outputHostname", data);
     });
 })
 
@@ -132,6 +140,10 @@ discord.on('ready', (socket) => {
         // if(config.discord_output === true) {
         //     tb.telegram.sendMessage(config.tg_cbjunkiesNs_chanId, 'CBJunkies-Bot is geconnect met Discord en Telegram.');
         // }
+
+    myEmitter.on("outputHostname", (output) => {
+        botChannel.send("Hostname = " + output);
+    })
 });
 
 discord.on('message', (msg) => {
@@ -139,9 +151,9 @@ discord.on('message', (msg) => {
     const args = msg.content.slice(config.prefix.length).trim().split(" ");
     const cmds = args.shift().toLowerCase();
     let botChannel = discord.channels.cache.get(config.dc_bot_chanId);
-    if (config.debug === true) {
-        console.log(msg);
-    }
+    // if (config.debug === true) {
+    //     console.log(msg);
+    // }
     if (cmds === "help") {
         const embed = new MessageEmbed()
             .setColor('#0099ff')
@@ -166,6 +178,11 @@ discord.on('message', (msg) => {
         for ( let x = 0; x < clientsName.length; x++) {
             botChannel.send('ID: ' + clientsId[x] + '  NAAM: ' + clientsName[x] + '  IP: ' + clientsIp[x]);
         }
+    } else if (cmds === "hostname") {
+        console.log("OK");
+        io.emit("discordCmd", {
+            cmd: "hostname"
+        });
     }
 })
 
