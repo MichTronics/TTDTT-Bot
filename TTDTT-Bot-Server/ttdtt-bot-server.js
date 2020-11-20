@@ -112,6 +112,10 @@ io.on('connection', (socket) => {
     socket.on("discordCmdHostname", (data) => {
         myEmitter.emit("outputHostname", data);
     });
+
+    socket.on('discordCmdUptime', (data) => {
+        myEmitter.emit('outputUptime', data);
+    })
 })
 
 // Socket message send when server is in maintenance
@@ -143,6 +147,10 @@ discord.on('ready', (socket) => {
 
     myEmitter.on("outputHostname", (output) => {
         botChannel.send("Hostname = " + output);
+    })
+
+    myEmitter.on("outputUptime", (output) => {
+        botChannel.send("Uptime = " + output);
     })
 });
 
@@ -179,9 +187,12 @@ discord.on('message', (msg) => {
             botChannel.send('ID: ' + clientsId[x] + '  NAAM: ' + clientsName[x] + '  IP: ' + clientsIp[x]);
         }
     } else if (cmds === "hostname") {
-        console.log("OK");
         io.emit("discordCmd", {
             cmd: "hostname"
+        });
+    } else if (cmds === "uptime") {
+        io.emit("discordCmd", { 
+            cmd: "uptime" 
         });
     }
 })

@@ -49,13 +49,24 @@ socket.on("discordCmd", (data) => {
     if (data.cmd === "hostname") {
         async function getHostname() {
             try{
-                const getHostname = await exec('hostname');
-                console.log(getHostname.stdout);
+                const getHostname = await exec("hostname");
+                // console.log(getHostname.stdout);
                 socket.emit("discordCmdHostname", getHostname.stdout);
             } catch (error) {
                 console.log(error)
             }
         }
         getHostname();
+    } else if (data.cmd === "uptime") {
+        async function getUpTime() {
+            try{
+                const getUptime = await exec("uptime");
+                // console.log(getUptime.stdout);
+                socket.emit("discordCmdUptime", getUptime.stdout);
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        getUpTime();
     }
 })
