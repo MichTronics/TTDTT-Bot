@@ -38,8 +38,7 @@ io.on('connection', (socket) => {
         if(clientsId.includes(data.clientId) === false) {
             log.logGreen(config.serverName,
                 '^gClient ' + data.clientName + 
-                ' is connected with socketId: ' + socket.client.id +
-                ' \n'
+                ' is connected with socketId: ' + socket.client.id 
             );
             usersSocketId.push(socket.client.id);
             clientsId.push(data.clientId);
@@ -75,8 +74,7 @@ io.on('connection', (socket) => {
 
         log.logGreen(config.serverName,
             '^rClient ^w' + clientsName[socket_pos] + 
-            ' ^ris disconnected with socketId:^w ' + socket.client.id +
-            ' ^g\n'
+            ' ^ris disconnected with socketId:^w ' + socket.client.id
         );
 
         usersSocketId.splice(socket_pos, 1);
@@ -90,22 +88,22 @@ io.on('connection', (socket) => {
     setInterval(function() {
         startTime = Date.now();
         socket.emit('ping');
-    }, 10000);
+    }, 5000);
     
     socket.on('pong', (data) => {
         latency = Date.now() - startTime;
+        if(latency >= 10) {
+            console.log(`## PING IS HIGH ## Latency is: ${latency}ms to: ${data.clientName} `);
+            log.logGreen(config.serverName,
+                '^r## PING IS HIGH ## Latency is: ^w' + latency + 
+                '^r ms to: ^w' + data.clientName
+            );
+        }
         if(config.debug === true) {
-            if(latency >= 10) {
-                console.log(`## PING IS HIGH ## Latency is: ${latency}ms to: ${data.clientName} `);
-                log.logGreen(config.serverName,
-                    '^r## PING IS HIGH ## Latency is: ^w' + latency + 
-                    '^r ms to: ^w' + data.clientName
-                );
-            }
-            // log.logGreen(config.serverName,
-            //     '## PING ## Latency is: ^w' + latency + 
-            //     '^g ms to: ^w' + data.clientName
-            // );
+            log.logGreen(config.serverName,
+                '## PING ## Latency is: ^w' + latency + 
+                '^g ms to: ^w' + data.clientName
+            );
         }
     });
 
@@ -159,9 +157,9 @@ discord.on('message', (msg) => {
     const args = msg.content.slice(config.prefix.length).trim().split(" ");
     const cmds = args.shift().toLowerCase();
     let botChannel = discord.channels.cache.get(config.dc_bot_chanId);
-    // if (config.debug === true) {
-    //     console.log(msg);
-    // }
+    if (config.debug === true) {
+        console.log(msg);
+    }
     if (cmds === "help") {
         const embed = new MessageEmbed()
             .setColor('#0099ff')
@@ -173,6 +171,8 @@ discord.on('message', (msg) => {
                 { name: `${config.prefix}client <command>`, value: `list: List all clients`, inline: true },
                 { name: `${config.prefix}hostname`, value: "Get real hostnames from clients", inline: true },
                 { name: `${config.prefix}uptime`, value: "Get uptime from clients", inline: true },
+                { name: `${config.prefix}debug <on/off>`, value: "Debug messages on/off", inline: true },
+
             )
             .setTimestamp()
             botChannel.send(embed);   
@@ -186,7 +186,7 @@ discord.on('message', (msg) => {
             botChannel.send(embed);
     } else if (cmds === "client" && args[0] === "list") {
         for ( let x = 0; x < clientsName.length; x++) {
-            botChannel.send('ID: ' + clientsId[x] + '  NAAM: ' + clientsName[x] + '  IP: ' + clientsIp[x]);
+            botChannel.send('Id: ' + clientsId[x] + '  Name: ' + clientsName[x] + '  Ip: ' + clientsIp[x]);
         }
     } else if (cmds === "hostname") {
         io.emit("discordCmd", {
@@ -196,6 +196,16 @@ discord.on('message', (msg) => {
         io.emit("discordCmd", { 
             cmd: "uptime" 
         });
+    } else if(cmds === "debug" && args[0] === "on") {
+        config.debug = true;
+        botChannel.send(`
+            Debug is on!
+        `)
+    } else if(cmds === "debug" && args[0] === "off") {
+        config.debug = false;
+        botChannel.send(`
+            Debug is off!
+        `)
     }
 })
 
