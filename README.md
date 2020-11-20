@@ -34,6 +34,8 @@ Features also on the TODO: for later:
 - [ ] Add Teamspeak.
 - [ ] Add Telegram.
 - [ ] Add Twitch.
+- [ ] Control Serialport for arduino stuff.
+- [ ] Control Gpio pins raspberry.
 
 
 

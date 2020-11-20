@@ -93,7 +93,7 @@ io.on('connection', (socket) => {
     socket.on('pong', (data) => {
         latency = Date.now() - startTime;
         if(latency >= 10) {
-            console.log(`## PING IS HIGH ## Latency is: ${latency}ms to: ${data.clientName} `);
+            // console.log(`## PING IS HIGH ## Latency is: ${latency}ms to: ${data.clientName} `);
             log.logGreen(config.serverName,
                 '^r## PING IS HIGH ## Latency is: ^w' + latency + 
                 '^r ms to: ^w' + data.clientName
