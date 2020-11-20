@@ -171,6 +171,8 @@ discord.on('message', (msg) => {
                 // { name: '\u200B', value: '\u200B' },
                 { name: `${config.prefix}help`, value: 'Show this help', inline: true },
                 { name: `${config.prefix}client <command>`, value: `list: List all clients`, inline: true },
+                { name: `${config.prefix}hostname`, value: "Get real hostnames from clients", inline: true },
+                { name: `${config.prefix}uptime`, value: "Get uptime from clients", inline: true },
             )
             .setTimestamp()
             botChannel.send(embed);   
