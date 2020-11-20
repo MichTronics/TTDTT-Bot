@@ -1,7 +1,7 @@
 {
   "name": "ttdtt-bot",
   "version": "0.0.1",
-  "description": "Twitch, Teamspeak, Telegram, Twitch, Discord - Bot. ",
+  "description": "Twitch, Teamspeak, Discord, Telegram, Twitch - Bot. ",
   "scripts": {
     "client": "nodemon TTDTT-Bot-Client/ttdtt-bot-client.js",
     "server": "nodemon TTDTT-Bot-Server/ttdtt-bot-server.js"
