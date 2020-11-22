@@ -28,6 +28,7 @@ TODO:
 - [ ] Discord bot command in maintenance mode.
 - [ ] Discord bot command reboot client.
 - [x] Discord bot command uptime clients.
+- [x] Discord bot command simple log.
 
 Features also on the TODO: for later:
 ----

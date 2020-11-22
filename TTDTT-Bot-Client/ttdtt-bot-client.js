@@ -1,9 +1,12 @@
 const io = require("socket.io-client");
 const log = require("../global/log/log");
+const Tail = require("tail-file");
 const { promisify } = require('util');
 const exec = promisify(require('child_process').exec);
 
 const config = require("./config/client_config");
+
+const syslog_tail = new Tail("/var/log/syslog");
 
 // Starting Client
 console.log("\033[2J");
@@ -68,5 +71,13 @@ socket.on("discordCmd", (data) => {
             }
         }
         getUpTime();
+    } else if (data.cmd === "log") {
+        console.log(data);
+        syslog_tail.on('line', (line) => {
+            console.log(line);
+            socket.emit("discordCmdLog", line);
+        })
     }
 })
+
+syslog_tail.start();

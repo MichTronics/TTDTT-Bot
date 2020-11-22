@@ -20,6 +20,7 @@
     "discord.js": "^12.4.1",
     "socket.io": "^3.0.1",
     "socket.io-client": "^3.0.1",
+    "tail-file": "^1.4.13",
     "telegraf": "^3.38.0",
     "terminal-kit": "^1.44.0"
   }

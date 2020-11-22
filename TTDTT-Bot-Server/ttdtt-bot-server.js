@@ -8,6 +8,7 @@ const EventEmitter = require("events");
 
 const config = require("./config/server_config");
 const token = require("./config/server_secrets");
+const { clientName } = require("../TTDTT-Bot-Client/config/client_config");
 
 let usersSocketId = [];
 let clientsId = [];
@@ -98,6 +99,10 @@ io.on('connection', (socket) => {
                 '^r## PING IS HIGH ## Latency is: ^w' + latency + 
                 '^r ms to: ^w' + data.clientName
             );
+            myEmitter.emit('clientPingHigh', {
+                latency: latency,
+                clientName: data.clientName,
+            })
         }
         if(config.debug === true) {
             log.logGreen(config.serverName,
@@ -113,6 +118,10 @@ io.on('connection', (socket) => {
 
     socket.on('discordCmdUptime', (data) => {
         myEmitter.emit('outputUptime', data);
+    })
+
+    socket.on("discordCmdLog", (data) => {
+        myEmitter.emit('outputLog', data);
     })
 })
 
@@ -150,6 +159,22 @@ discord.on('ready', (socket) => {
     myEmitter.on("outputUptime", (output) => {
         botChannel.send("Uptime = " + output);
     })
+
+    myEmitter.on("clientPingHigh", (output) => {
+        const embed = new MessageEmbed()
+            .setTitle("Ping is HIGH")
+            .setColor(0xff0000)
+            .setDescription(`Latency of ${output.clientName} is ${output.latency}ms.`);
+            botChannel.send(embed);
+    })
+
+    myEmitter.on("outputLog", (output) => {
+        const embed = new MessageEmbed()
+            .setTitle(`Log Message`)
+            .setColor(0x00ff00)
+            .setDescription(`${output}`);
+            botChannel.send(embed);
+    })
 });
 
 discord.on('message', (msg) => {
@@ -172,7 +197,7 @@ discord.on('message', (msg) => {
                 { name: `${config.prefix}hostname`, value: "Get real hostnames from clients", inline: true },
                 { name: `${config.prefix}uptime`, value: "Get uptime from clients", inline: true },
                 { name: `${config.prefix}debug <on/off>`, value: "Debug messages on/off", inline: true },
-
+                { name: `${config.prefix}log <on/off>`, value: "Log messages on/off", inline: true },
             )
             .setTimestamp()
             botChannel.send(embed);   
@@ -206,6 +231,10 @@ discord.on('message', (msg) => {
         botChannel.send(`
             Debug is off!
         `)
+    } else if(cmds === "log") {
+        io.emit("discordCmd", {
+            cmd: "log"
+        });
     }
 })
 
