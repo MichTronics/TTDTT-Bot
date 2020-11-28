@@ -13,4 +13,11 @@ module.exports = {
 
     // Host connect port
     hostPort: 6001,
+
+    // Debug on/off
+    debug: true,
+
+    // Show logs on/off
+    showLog: true
+
 };

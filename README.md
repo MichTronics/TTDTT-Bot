@@ -22,13 +22,14 @@ TODO:
 - [x] Added Discord.
 - [x] Added Discord Bot Welcome message. 
 - [x] Added Discord Bot Command messages.
-- [x] Discord bot command debug on/off.
-- [x] Discord bot command get the real hostnames from clients.
-- [x] Discord bot command list al connected clients.
-- [ ] Discord bot command in maintenance mode.
-- [ ] Discord bot command reboot client.
-- [x] Discord bot command uptime clients.
-- [x] Discord bot command simple log.
+- [x] Bot command debug on/off.
+- [x] Bot command get the real hostnames from clients.
+- [x] Bot command list al connected clients.
+- [ ] Bot command in maintenance mode.
+- [ ] Bot command reboot client.
+- [x] Bot command uptime clients.
+- [x] Bot command simple log.
+- [x] Bot command status.
 
 Features also on the TODO: for later:
 ----
@@ -37,6 +38,7 @@ Features also on the TODO: for later:
 - [ ] Add Twitch.
 - [ ] Control Serialport for arduino stuff.
 - [ ] Control Gpio pins raspberry.
+- [ ] Website to control bot.
 
 
 

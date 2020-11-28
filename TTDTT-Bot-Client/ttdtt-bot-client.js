@@ -7,6 +7,24 @@ const exec = promisify(require('child_process').exec);
 const config = require("./config/client_config");
 
 const syslog_tail = new Tail("/var/log/syslog");
+let remotetrx_tail;
+
+if (config.clientType === "RASPBERRY") {
+    remotetrx_tail = new Tail("/var/log/remotetrx");
+}
+
+if (config.showLog === true) {
+    syslog_tail.on('line', (line) => {
+        console.log(line);
+        socket.emit("discordCmdLog", line);
+    })
+    if (config.clientType === "RASPBERRY") {
+        remotetrx_tail.on('line', (line) => {
+            console.log(line);
+            socket.emit("discordCmdLog", line);
+        })
+    }
+}
 
 // Starting Client
 console.log("\033[2J");
@@ -71,13 +89,33 @@ socket.on("discordCmd", (data) => {
             }
         }
         getUpTime();
-    } else if (data.cmd === "log") {
-        console.log(data);
-        syslog_tail.on('line', (line) => {
-            console.log(line);
-            socket.emit("discordCmdLog", line);
-        })
+    } else if (data.cmd === "log" ) {
+        // console.log(data);
+        if (data.args === "on") {
+            console.log(data);
+            config.showLog = true;
+            console.log(config.showLog);
+            if (config.clientType === "RASPBERRY") {
+                remotetrx_tail.start();
+            }
+            syslog_tail.start()
+        }
+        if (data.args === "off") {
+            // console.log(data);
+            config.showLog = false;
+            console.log(config.showLog);
+            syslog_tail.stop();
+            if (config.clientType === "RASPBERRY") {
+                remotetrx_tail.stop();
+            }
+        }
     }
 })
 
+
+
+if (config.clientType === "RASPBERRY") {
+    remotetrx_tail.start();
+}
 syslog_tail.start();
+

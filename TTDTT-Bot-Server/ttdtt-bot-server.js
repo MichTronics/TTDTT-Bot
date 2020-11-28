@@ -93,7 +93,7 @@ io.on('connection', (socket) => {
     
     socket.on('pong', (data) => {
         latency = Date.now() - startTime;
-        if(latency >= 10) {
+        if(latency >= 30) {
             // console.log(`## PING IS HIGH ## Latency is: ${latency}ms to: ${data.clientName} `);
             log.logGreen(config.serverName,
                 '^r## PING IS HIGH ## Latency is: ^w' + latency + 
@@ -198,6 +198,7 @@ discord.on('message', (msg) => {
                 { name: `${config.prefix}uptime`, value: "Get uptime from clients", inline: true },
                 { name: `${config.prefix}debug <on/off>`, value: "Debug messages on/off", inline: true },
                 { name: `${config.prefix}log <on/off>`, value: "Log messages on/off", inline: true },
+                { name: `${config.prefix}status`, value: "Status message of the bot", inline: true },
             )
             .setTimestamp()
             botChannel.send(embed);   
@@ -221,20 +222,30 @@ discord.on('message', (msg) => {
         io.emit("discordCmd", { 
             cmd: "uptime" 
         });
-    } else if(cmds === "debug" && args[0] === "on") {
+    } else if(cmds === "debug" && args[0] === "on" && config.discord_admin_id.includes(msg.author.id) === true) {
         config.debug = true;
         botChannel.send(`
             Debug is on!
         `)
-    } else if(cmds === "debug" && args[0] === "off") {
+    } else if(cmds === "debug" && args[0] === "off" && config.discord_admin_id.includes(msg.author.id) === true) {
         config.debug = false;
         botChannel.send(`
             Debug is off!
         `)
-    } else if(cmds === "log") {
+    } else if(cmds === "log" && args[0] === "on" || args[0] === "off" && config.discord_admin_id.includes(msg.author.id) === true) {
         io.emit("discordCmd", {
-            cmd: "log"
+            cmd: "log",
+            args: args[0]
         });
+    } else if(cmds === "status") {
+        const embed = new MessageEmbed()
+            .setTitle(`Status pagina`)
+            .setColor(0x00ff00)
+            .setDescription(`
+                debug: ${config.debug}\n
+                clients connected: ${usersSocketId.length}
+            `);
+            botChannel.send(embed);
     }
 })
 
