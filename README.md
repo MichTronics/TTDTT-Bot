@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/MichTronics/TTDTT-Bot.svg?branch=master)](https://travis-ci.com/MichTronics/TTDTT-Bot)
+
 # TTDTT-Bot
 
 Twitch, Teamspeak, Telegram, Twitch, Discord - Bot. 
