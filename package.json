@@ -18,6 +18,7 @@
   "homepage": "https://github.com/MichTronics/TTDTT-Bot#readme",
   "dependencies": {
     "discord.js": "^12.4.1",
+    "express": "^4.17.1",
     "socket.io": "^3.0.1",
     "socket.io-client": "^3.0.1",
     "tail-file": "^1.4.13",

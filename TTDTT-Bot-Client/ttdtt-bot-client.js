@@ -7,6 +7,9 @@ const exec = promisify(require('child_process').exec);
 const config = require("./config/client_config");
 
 const syslog_tail = new Tail("/var/log/syslog");
+// const apache_tail = new Tail("/var/log/apache2/access.log");
+// const apache_error_tail = new Tail("/var/log/apache2/error.log");
+// const vhost_lail = new Tail("/var/log/apache2/other_vhosts_access.log");
 let remotetrx_tail;
 
 if (config.clientType === "RASPBERRY") {
@@ -24,6 +27,22 @@ if (config.showLog === true) {
             socket.emit("discordCmdLog", line);
         })
     }
+    // apache_tail.on('line', (line) => {
+    //     console.log(line);
+    //     socket.emit("discordCmdLog", line);
+    // })
+    // vhost_lail.on('line', (line) => {
+    //     console.log(line);
+    //     let splitline = line.trim().split(" ");
+    //     console.log(splitline[1]);
+    //     //let lsplitline = splitline.length();
+
+    //     socket.emit("discordCmdLog", line);
+    // })
+    // apache_error_tail.on('line', (line) => {
+    //     console.log(line);
+    //     socket.emit("discordCmdLog", line);
+    // })
 }
 
 // Starting Client
@@ -112,10 +131,11 @@ socket.on("discordCmd", (data) => {
     }
 })
 
-
-
 if (config.clientType === "RASPBERRY") {
     remotetrx_tail.start();
 }
 syslog_tail.start();
+// apache_tail.start();
+// vhost_lail.start();
+// apache_error_tail.start();
 

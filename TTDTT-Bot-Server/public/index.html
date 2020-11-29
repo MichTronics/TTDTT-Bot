@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CBJunkies Log Page</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+        body{
+            background-color: rgb(33, 33, 41);
+            display: flex;
+            justify-content: center;
+            margin:0; 
+            padding:0;
+        }
+
+        #events {
+            overflow-x:hidden;
+            overflow-y:visible;
+            height: 500px;
+            width: 900px;
+            background-color: black;
+            color: grey;
+            font-family: 'VT323', monospace;
+            font-size: 20px;
+            /* font-weight: bold; */
+        }
+    </style>
+    <!-- <link type="text.css" rel="stylesheet" href="xterm.css" />
+    <script type="text/html" src="xterm.js"></script> -->
+</head>
+<body>
+    <div id="events"></div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        function getTime() {
+    let newDate = new Date();
+
+    let hour = newDate.getHours();
+    hour = (hour < "10" ? "0" : "") + hour;
+
+    let min = newDate.getMinutes();
+    min = (min < "10" ? "0" : "") + min;
+
+    let sec = newDate.getSeconds();
+    sec = (sec < "10" ? "0" : "") + sec;
+
+    let millisec = newDate.getMilliseconds();
+    millisec = (millisec < "100" ? "0" : "") + millisec;
+
+    // console.log(hour + ':' + min + ':' + sec + ':' + millisec);
+    return { hour, min, sec, millisec };
+}
+
+        const $events = document.getElementById('events');
+
+        const newItem = (content) => {
+            const item = document.createElement('div');
+            let a = getTime();
+            item.innerHTML = `
+                <span style="color:red; letter-spacing:1px;">[</span><span style="color:white; letter-spacing:1px;">${a.hour}</span><span style="color:red; letter-spacing:1px;">:</span><span style="color:white;">${a.min}</span><span style="color:red;">:</span><span style="color:white;">${a.sec}</span><span style="color:red;">:</span><span style="color:white;">${a.millisec}</span><span style="color:red;">]</span><span style="color:green;"> ${content}</span>
+            `;
+            return item;
+        };
+
+       
+            var elem = document.getElementById('events');
+            elem.scrollTop = elem.scrollHeight;
+       
+
+        const socket = io();
+
+        socket.on('connect', () => {
+          $events.appendChild(newItem('Connected to TTDTT-Server.'));
+        });
+
+        socket.on("getClientInfo", () => {
+            socket.emit("clientInfo", {
+                clientId: 4,
+                clientType: "CHAT_CLIENT",
+                clientName: "CHAT_CLIENT",
+            });
+        });
+
+        socket.on('logWeb', (output) => {
+            $events.appendChild(newItem(output));
+            var elem = document.getElementById('events');
+            elem.scrollTop = elem.scrollHeight;
+        });
+    </script>
+</body>
+</html>

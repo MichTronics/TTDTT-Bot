@@ -1,4 +1,8 @@
-const http = require("http").createServer();
+const express = require("express");
+var app = express();
+const http = require("http").createServer(app);
+var path = require('path');
+var public = path.join(__dirname, 'public');
 const io = require("socket.io")(http);
 const log = require("../global/log/log");
 const { Telegraf } = require("telegraf");
@@ -8,7 +12,6 @@ const EventEmitter = require("events");
 
 const config = require("./config/server_config");
 const token = require("./config/server_secrets");
-const { clientName } = require("../TTDTT-Bot-Client/config/client_config");
 
 let usersSocketId = [];
 let clientsId = [];
@@ -21,14 +24,24 @@ class MyEmitter extends EventEmitter {};
 const discord = new Discord.Client();
 const myEmitter = new MyEmitter;
 
+
 // Starting Server
 console.log("\033[2J");
 log.logGreen(config.serverName, 'Starting....');
 
+
+//
+// Express
+//
+app.get('/', (req, res) => {
+    res.sendFile(path.join(public, 'index.html'));
+})
+app.use('/', express.static(public));
+
+
 //
 // Socket.io
 //
-
 io.on('connection', (socket) => {
 
     io.emit('socketClientID', socket.client.id);
@@ -109,6 +122,7 @@ io.on('connection', (socket) => {
                 '## PING ## Latency is: ^w' + latency + 
                 '^g ms to: ^w' + data.clientName
             );
+            io.emit("logWeb", '## PING ## Latency is: ' + latency + ' ms to: ' + data.clientName)
         }
     });
 
@@ -154,6 +168,7 @@ discord.on('ready', (socket) => {
 
     myEmitter.on("outputHostname", (output) => {
         botChannel.send("Hostname = " + output);
+        io.emit("logWeb", output);
     })
 
     myEmitter.on("outputUptime", (output) => {
@@ -169,6 +184,7 @@ discord.on('ready', (socket) => {
     })
 
     myEmitter.on("outputLog", (output) => {
+        io.emit("logWeb", output);
         const embed = new MessageEmbed()
             .setTitle(`Log Message`)
             .setColor(0x00ff00)

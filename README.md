@@ -30,6 +30,7 @@ TODO:
 - [x] Bot command uptime clients.
 - [x] Bot command simple log.
 - [x] Bot command status.
+- [x] Logging to website.
 
 Features also on the TODO: for later:
 ----
