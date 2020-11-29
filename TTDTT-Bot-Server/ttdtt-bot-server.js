@@ -102,7 +102,7 @@ io.on('connection', (socket) => {
     setInterval(function() {
         startTime = Date.now();
         socket.emit('ping');
-    }, 2000);
+    }, 5000);
     
     socket.on('pong', (data) => {
         latency = Date.now() - startTime;
@@ -117,13 +117,13 @@ io.on('connection', (socket) => {
                 clientName: data.clientName,
             })
         }
-        if(config.debug === true) {
+        if(config.debugPing === true) {
             log.logGreen(config.serverName,
                 '## PING ## Latency is: ^w' + latency + 
                 '^g ms to: ^w' + data.clientName
             );
-            io.emit("logWeb", '## PING ## Latency is: ' + latency + ' ms to: ' + data.clientName)
         }
+        io.emit("logPingWeb", { latency: latency, clientName: data.clientName})
     });
 
     socket.on("discordCmdHostname", (data) => {

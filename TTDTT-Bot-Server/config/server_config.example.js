@@ -2,6 +2,9 @@ module.exports = {
     // Debug messages
     debug: true,
     
+    // Debug ping messages
+    debugPing: false,
+
     // Output to discord
     discord_output: false,
     

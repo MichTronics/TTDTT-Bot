@@ -88,6 +88,12 @@
             var elem = document.getElementById('events');
             elem.scrollTop = elem.scrollHeight;
         });
+
+        socket.on('logPingWeb', (output) => {
+            $events.appendChild(newItem(`<span style="color:yellow;">>>></span><span style="color:green;">${output.clientName}</span><span style="color:yellow;"><<< </span><span style="color:blue;">PING: </span><span style="color:gray;">Latency is </span><span style="color:white;">${output.latency}</span><span style="color:gray;">ms.</span>`));
+            var elem = document.getElementById('events');
+            elem.scrollTop = elem.scrollHeight;
+        });
     </script>
 </body>
 </html>
